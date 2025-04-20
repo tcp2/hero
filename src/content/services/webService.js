@@ -29,7 +29,6 @@ function sendMessageBack(type, payload = {}) {
 
   window.dispatchEvent(event);
 }
-alert('ok');
 
 window.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -64,7 +63,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       }
 
       if (!workflow) {
-        alert('Workflow not found');
         sendMessageBack('workflow:execute', {
           error: 'Workflow not found',
         });
