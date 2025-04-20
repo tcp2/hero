@@ -1,3 +1,3 @@
 export default {
-  baseApiUrl: '',
+  baseApiUrl: 'https://laobo.xyz/api',
 };

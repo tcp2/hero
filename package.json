@@ -19,7 +19,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "engines": {
-    "node": ">=14.18.1"
+    "node": "20.11.1"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -147,5 +147,12 @@
   },
   "volta": {
     "node": "20.11.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js",
+      "simple-git-hooks",
+      "vue-demi"
+    ]
   }
 }

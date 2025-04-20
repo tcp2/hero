@@ -16,6 +16,7 @@ import { useDialog } from '@/composable/dialog';
 import { arraySorter } from '@/utils/helper';
 import { useHostedWorkflowStore } from '@/stores/hostedWorkflow';
 import SharedCard from '@/components/newtab/shared/SharedCard.vue';
+import { sendMessage } from '@/utils/message';
 
 const props = defineProps({
   search: {
@@ -40,9 +41,13 @@ const menu = [
 ];
 
 const workflows = computed(() => {
-  const filtered = hostedWorkflowStore.toArray.filter(({ name }) =>
-    name.toLocaleLowerCase().includes(props.search.toLocaleLowerCase())
-  );
+  const filtered = hostedWorkflowStore.toArray.filter((item) => {
+    if (!item?.name) return false;
+
+    return item.name
+      .toLocaleLowerCase()
+      .includes(props.search.toLocaleLowerCase());
+  });
 
   return arraySorter({
     data: filtered,
@@ -64,5 +69,9 @@ async function deleteWorkflow(workflow) {
       }
     },
   });
+}
+
+async function executeWorkflow(workflow) {
+  await sendMessage('workflow:execute', workflow, 'background');
 }
 </script>
