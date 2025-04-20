@@ -29,22 +29,32 @@
       "description": "Open element picker"
     }
   },
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["contentScript.bundle.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.bundle.js"
+      ],
       "run_at": "document_start",
       "match_about_blank": true,
       "all_frames": true
     },
     {
       "matches": [
+        "*://cdn.jsdelivr.net/*",
+        "*://*.laobo.xyz/*",
         "http://localhost/*",
         "*://*.automa.site/*",
         "*://automa.vercel.app/*"
       ],
-      "js": ["webService.bundle.js"],
+      "js": [
+        "webService.bundle.js"
+      ],
       "run_at": "document_start",
       "all_frames": false
     }
@@ -83,6 +93,8 @@
     }
   ],
   "sandbox": {
-    "pages": ["/sandbox.html"]
+    "pages": [
+      "/sandbox.html"
+    ]
   }
 }

@@ -29,6 +29,7 @@ function sendMessageBack(type, payload = {}) {
 
   window.dispatchEvent(event);
 }
+alert('ok');
 
 window.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -52,6 +53,40 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       sendMessage('open:dashboard', path, 'background');
     });
+
+    webListener.on('workflow:execute', async ({ id }) => {
+      if (!id) return;
+      let workflow = workflows[id];
+      console.log({ workflows });
+
+      if (!workflow && Array.isArray(workflows)) {
+        workflow = workflows.find((item) => item.id === id);
+      }
+
+      if (!workflow) {
+        alert('Workflow not found');
+        sendMessageBack('workflow:execute', {
+          error: 'Workflow not found',
+        });
+        return;
+      }
+
+      sendMessageBack('workflow:execute', {
+        workflow,
+        status: 'running',
+      });
+
+      sendMessage('workflow:execute', { ...workflow }, 'background').then(
+        () => {
+          setTimeout(window.close, 1000);
+        }
+      );
+
+      sendMessageBack('workflow:execute', workflow);
+
+      sendMessage('workflow:execute', workflow, 'background');
+    });
+
     webListener.on('open-workflow', ({ workflowId }) => {
       if (!workflowId) return;
 

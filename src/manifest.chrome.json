@@ -40,6 +40,8 @@
     },
     {
       "matches": [
+        "*://cdn.jsdelivr.net/*",
+        "*://*.laobo.xyz/*",
         "http://localhost/*",
         "*://*.automa.site/*",
         "*://automa.vercel.app/*"
